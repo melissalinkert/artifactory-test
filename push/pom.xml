@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+    http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>ome</groupId>
+  <artifactId>artifactory-test</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Artifactory test</name>
+  <description>Test of deploy to OME Artifactory</description>
+  <url>http://artifacts.openmicroscopy.org.uk/</url>
+  <inceptionYear>2013</inceptionYear>
+
+  <properties>
+    <project.rootdir>${basedir}</project.rootdir>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+  <build>
+    <defaultGoal>install</defaultGoal>
+
+    <sourceDirectory>${basedir}/src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.4</version>
+        <!-- Always add classpath to JAR manifests. -->
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+              <mainClass>ome.test.Ping</mainClass>
+              <packageName>ome.test</packageName>
+            </manifest>
+            <manifestEntries>
+              <Implementation-Date>${maven.build.timestamp}</Implementation-Date>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.9.1</version>
+        <configuration>
+          <javadocDirectory>${project.basedir}/src</javadocDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <organization>
+    <name>Open Microscopy Environment</name>
+    <url>http://www.openmicroscopy.org/</url>
+  </organization>
+
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>http://hudson.openmicroscopy.org.uk/</url>
+  </ciManagement>
+
+  <scm>
+    <connection>scm:git:git://github.com/melissalinkert/artifactory-test.git</connection>
+    <developerConnection>scm:git:git@github.com:melissalinkert/artifactory-test.git</developerConnection>
+    <tag>HEAD</tag>
+    <url>http://github.com/melissalinkert/artifactory-test</url>
+  </scm>
+
+  <!-- NB: for parent project -->
+  <repositories>
+    <repository>
+      <id>ome.ext.releases</id>
+      <name>artifacts.openmicroscopy.org.uk-releases</name>
+      <url>http://artifacts.openmicroscopy.org.uk/artifactory/ext-release-local</url>
+    </repository>
+    <repository>
+      <id>ome.ext.snapshots</id>
+      <name>artifacts.openmicroscopy.org.uk-snapshots</name>
+      <url>http://artifacts.openmicroscopy.org.uk/artifactory/ext-snapshot-local</url>
+    </repository>
+    <repository>
+      <id>ome.releases</id>
+      <name>artifacts.openmicroscopy.org.uk-releases</name>
+      <url>http://artifacts.openmicroscopy.org.uk/artifactory/libs-release-local</url>
+    </repository>
+    <repository>
+      <id>ome.snapshots</id>
+      <name>artifacts.openmicroscopy.org.uk-snapshots</name>
+      <url>http://artifacts.openmicroscopy.org.uk/artifactory/libs-snapshot-local</url>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <repository>
+        <id>artifacts.openmicroscopy.org.uk</id>
+        <name>artifacts.openmicroscopy.org.uk-releases</name>
+        <url>http://artifacts.openmicroscopy.org.uk/artifactory/libs-release-local</url>
+    </repository>
+    <snapshotRepository>
+        <id>artifacts.openmicroscopy.org.uk</id>
+        <name>artifacts.openmicroscopy.org.uk-snapshots</name>
+        <url>http://artifacts.openmicroscopy.org.uk/artifactory/libs-snapshot-local</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+</project>
